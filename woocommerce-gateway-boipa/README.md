@@ -1,13 +1,14 @@
-=== BOIPA Gateway for Woocommerce ===
-Requires at least: 4.1
-Tested up to: 4.9.5
-Stable tag: 1.4.0
-License: G
-License URI:
+[![GitHub license](https://img.shields.io/github/license/UniversalPay/prestashop_beta)](https://github.com/UniversalPay/prestashop_beta/blob/master/LICENSE)
+![Version](https://img.shields.io/badge/version-1.0-informational)
 
-== Description ==
+# Universal Pay PrestaShop Plugin
 
-BOIPA Gateway for Woocommerce is a Wordpress plugin which allows you to accept payments on your Woocommerce store.
+
+This plugin is provided for BOIPA merchants using WooCommerce.
+
+Got a question? Contact ecommerce@boipa.com for help.
+
+For instructions on how to install the plugin on PrestaShop please go to our Wiki.
 
 == Installation ==
 
