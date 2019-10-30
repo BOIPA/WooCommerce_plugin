@@ -1,24 +1,11 @@
-[![GitHub license](https://img.shields.io/github/license/UniversalPay/prestashop_beta)](https://github.com/UniversalPay/prestashop_beta/blob/master/LICENSE)
+![GitHub license](https://img.shields.io/github/license/UniversalPay/prestashop_beta)
 ![Version](https://img.shields.io/badge/version-1.0-informational)
 
-# Universal Pay PrestaShop Plugin
+# BOIPA WooCommerce Plugin Plugin
+This plugin is provided for BOIPA merchants using WooCommerce. 
 
+Got a question? Email ecommerce@boipa.com for help.
 
-This plugin is provided for BOIPA merchants using WooCommerce.
+## Installation Guides
 
-Got a question? Contact ecommerce@boipa.com for help.
-
-For instructions on how to install the plugin on PrestaShop please go to our Wiki.
-
-## Installation
-
-This section describes how to install the plugin and get it working.
-
-1. Login into the admin area of your website
-2. Go to "Plugins" -> "Add New"
-3. Click "Upload Plugin" link at the top of the page
-4. Click "Browse" and navigate to the plugin's zip file and choose that file.
-5. Click "Install Now" button
-6. Wait while plugin is uploaded to your server
-7. Add your merchant id and password on "Settings" page, and choose your payment solution
-8. Click "Activate Plugin" button
+For instructions on how to install the plugin on WooCommerce please click on the Wiki [here](https://github.com/BOIPA/WooCommerce_plugin/wiki/Installation-of-BOIPA-Plugin-for-WooCommerce).
