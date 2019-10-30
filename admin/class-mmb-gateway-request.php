@@ -111,7 +111,14 @@ class MMB_Gateway_Request
         }
         return $this->gateway->api_js_url;
     }
-
+    private function get_payment_action()
+    {
+        if($this->gateway->api_payment_action){
+            return 'AUTH';
+        }else{
+            return 'PURCHASE';
+        }
+    }
     /**
      * @since    1.0.0
      * @param    WC_Order $order
@@ -143,7 +150,7 @@ class MMB_Gateway_Request
             'merchantId' => $this->gateway->api_merchant_id,
             'password' => $this->gateway->api_password,
             'brandId' => $this->gateway->api_brand_id,
-            'action' => 'PURCHASE',
+            'action' => $this->get_payment_action(),
             'amount' => $order->get_total(),
             'currency' => get_woocommerce_currency(),
             'country' => wc_get_base_location()['country'],
@@ -237,7 +244,7 @@ class MMB_Gateway_Request
             update_post_meta($order->get_id(), '_mmb_gateway_message', $mmb_message);
         }
 
-        if ( $mmb_check_request_data->status == "ERROR" || $mmb_check_request_data->status == "NOT_SET_FOR_CAPTURE" || $mmb_check_request_data->status == "DECLINED" || $mmb_check_request_data->status == "INCOMPLETE" ) {
+        if ( $mmb_check_request_data->status == "ERROR"  || $mmb_check_request_data->status == "DECLINED" || $mmb_check_request_data->status == "INCOMPLETE" ) {
             $order->update_status( 'failed', sprintf( __( 'Card payment failed.', 'mmb-gateway-woocommerce' ) ) );
             $mmb_message = array(
                 'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
@@ -248,9 +255,17 @@ class MMB_Gateway_Request
         }
 
         if (!isset($mmb_message)) {
-            $order->update_status( 'completed', sprintf( __( 'Card payment completed.', 'mmb-gateway-woocommerce' ) ) );
-            $order->payment_complete();
-
+            //Auth transaction
+            if($mmb_check_request_data->status == "NOT_SET_FOR_CAPTURE"){
+                update_post_meta( $order->get_id(), '_payment_status', 'on-hold');
+                $order->update_status( 'on-hold', sprintf( __( 'Card payment authorized.', 'mmb-gateway-woocommerce' ) ) );
+            }else{
+                $order->update_status( 'completed', sprintf( __( 'Card payment completed.', 'mmb-gateway-woocommerce' ) ) );
+                update_post_meta( $order->get_id(), '_payment_status', 'completed');
+                $order->payment_complete();
+                do_action( 'woocommerce_payment_complete', $order_id);
+            }
+            
             //save the EVO transaction ID into the database
             update_post_meta( $order->get_id(), '_transaction_id', $merchantTxId );
 
@@ -275,7 +290,6 @@ class MMB_Gateway_Request
         }
 
         update_post_meta($order_id, '_mmb_gateway_message', $mmb_message);
-        do_action( 'woocommerce_payment_complete', $order_id);
         header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK', true, 200);
     }
 
@@ -597,8 +611,173 @@ class MMB_Gateway_Request
             $paysol_request_data = json_decode( $paysol_request_body);
             if($paysol_request_data->result == 'success' && $paysol_request_data->status == 'SET_FOR_REFUND' ) {
                 return true;
+            }else if(strpos($paysol_request_data->errors, 'Transaction not refundable: Original transaction not SUCCESS') !== false){
+                //if the order was authorized + captured, the status in the Gateway system is still showing NOT_SET_FOR_CAPTURE, the refund can not be excuted
+                return new WP_Error( 'invalid_order', 'The order is in capture process queue, can not refund now!' );
             }else{
                 return new WP_Error( 'invalid_order', 'refund execute error' );
             }
     }
+    //Do the payment capture process
+    public function do_capture_process($sandbox = false,$order, $merchantTxId,$amount){
+        if ( $this->gateway->api_merchant_id === null || $this->gateway->api_merchant_id === ''
+            || $this->gateway->api_password === null || $this->gateway->api_password === '' ) {
+                return new WP_Error( 'invalid_order', 'miss merchant configuration info' );
+            }
+            
+            $data = array();
+            $data['merchantId'] = $this->gateway->api_merchant_id;
+            $data['password'] = $this->gateway->api_password;
+            $data['action'] = 'CAPTURE';
+            $milliseconds = round(microtime(true) * 1000);
+            $data['timestamp'] = $milliseconds;
+            $data['amount'] = $amount;
+            $data['originalMerchantTxId'] = $merchantTxId;
+            $data['allowOriginUrl'] = site_url();
+            
+            
+            $token_request = wp_remote_post( $this->get_token_url( $sandbox ), array(
+                'method'      => 'POST',
+                'timeout'     => 45,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'body'        => $data,
+                'cookies'     => array()
+            ) );
+            
+            if( is_wp_error( $token_request ) ) {
+                $order->add_order_note( sprintf( __( 'Capture error!' )) );
+                return;
+            }
+            
+            $token_request_body = wp_remote_retrieve_body( $token_request );
+            $token_request_data = json_decode( $token_request_body);
+            
+            
+            
+            if( $token_request_data->result !== 'success' ) {
+                $order->add_order_note( sprintf( __( 'Capture error!' )) );
+                return;
+            }
+            
+            $capture_param = array();
+            $capture_param['merchantId']= $this->gateway->api_merchant_id;
+            $capture_param['token']= $token_request_data->token;
+            $paysol_request = wp_remote_post( $this->get_payment_url($sandbox), array(
+                'method'      => 'POST',
+                'timeout'     => 45,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'body'        => $capture_param,
+                'cookies'     => array()
+            ) );
+            
+            
+            
+            if( is_wp_error( $paysol_request ) ) {
+                $order->add_order_note( sprintf( __( 'Capture error!' )) );
+                return;
+            }
+            
+            $paysol_request_body = wp_remote_retrieve_body( $paysol_request );
+            $paysol_request_data = json_decode($paysol_request_body);
+            
+            if($paysol_request_data->result == 'success' && $paysol_request_data->status == 'SET_FOR_CAPTURE' ) {
+                $order->add_order_note( sprintf( __( 'Capture charge complete (Amount: %s)' ), $amount ) );
+                $order->update_meta_data( '_payment_status', 'completed' );
+                $order->update_status( 'completed', sprintf( __( 'Card payment completed.', 'mmb-gateway-woocommerce' ) ) );
+                $order->payment_complete();
+                $order_id = $order->get_id();
+                do_action( 'woocommerce_payment_complete', $order_id);
+                $order->save();
+                return true;
+            }else{
+                $order->add_order_note( sprintf( __( 'Capture error!' )) );
+                return;
+            }
+    }
+    //Do the payment VOID process
+    public function do_void_process($sandbox = false,$order, $merchantTxId){
+        if ( $this->gateway->api_merchant_id === null || $this->gateway->api_merchant_id === ''
+            || $this->gateway->api_password === null || $this->gateway->api_password === '' ) {
+                return new WP_Error( 'invalid_order', 'miss merchant configuration info' );
+            }
+            
+            $data = array();
+            $data['merchantId'] = $this->gateway->api_merchant_id;
+            $data['password'] = $this->gateway->api_password;
+            $data['action'] = 'VOID';
+            $milliseconds = round(microtime(true) * 1000);
+            $data['timestamp'] = $milliseconds;
+            $data['originalMerchantTxId'] = $merchantTxId;
+            $data['allowOriginUrl'] = site_url();
+            
+            
+            $token_request = wp_remote_post( $this->get_token_url( $sandbox ), array(
+                'method'      => 'POST',
+                'timeout'     => 45,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'body'        => $data,
+                'cookies'     => array()
+            ) );
+            
+            if( is_wp_error( $token_request ) ) {
+                return new WP_Error( 'invalid_order', 'token request error' );
+            }
+            
+            $token_request_body = wp_remote_retrieve_body( $token_request );
+            $token_request_data = json_decode( $token_request_body);
+            
+            
+            
+            if( $token_request_data->result !== 'success' ) {
+                return new WP_Error( 'invalid_order', 'token request error' );
+            }
+            
+            $void_param = array();
+            $void_param['merchantId']= $this->gateway->api_merchant_id;
+            $void_param['token']= $token_request_data->token;
+            $paysol_request = wp_remote_post( $this->get_payment_url($sandbox), array(
+                'method'      => 'POST',
+                'timeout'     => 45,
+                'redirection' => 5,
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'body'        => $void_param,
+                'cookies'     => array()
+            ) );
+            
+            
+            
+            if( is_wp_error( $paysol_request ) ) {
+                $order->add_order_note( sprintf( __( 'Void error!' )) );
+                return;
+            }
+            
+            $paysol_request_body = wp_remote_retrieve_body( $paysol_request );
+            $paysol_request_data = json_decode($paysol_request_body);
+            
+            
+            
+            if($paysol_request_data->result == 'success' && $paysol_request_data->status == 'VOID' ) {
+                $order->update_meta_data( '_payment_status', 'cancelled' );
+                $order->update_status( 'cancelled', sprintf( __( 'Payment void complete', 'mmb-gateway-woocommerce' ) ) );
+                $order_id = $order->get_id();
+                $order->save();
+                return true;
+            }else{
+                $order->add_order_note( sprintf( __( 'Void error!' )) );
+                return;
+            }
+            
+    }
+    
 }

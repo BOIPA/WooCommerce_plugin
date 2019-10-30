@@ -13,10 +13,11 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
+/*Define the control parameter value to determine whether the AUTH functionality show or not */
+$show_auth_fields = '1';
 /*Define the control parameter value to determine whether the UI fields show or not */
-$show_url_fields_sandbox = '1';
-$show_url_fields_live = '1';
+$show_url_fields_sandbox = '0';
+$show_url_fields_live = '0';
 //Define the $integration_modes,specifies whether integration mode should be shown or not, 1 means to show, 0 means not
 
 $integration_show_iframe = '1';
@@ -129,6 +130,22 @@ if($integration_show_iframe || $integration_show_redirect || $integration_show_h
     }
 }
 
+
+if($show_auth_fields){
+    //Purchase or Auth
+    $admin_fields_array['api_payment_action'] = array(
+        'title' => __('Payment mode', 'mmb-gateway-woocommerce'),
+        'type' => 'select',
+        'description' => '',
+        'desc_tip' => false,
+        'default' => 0
+    );
+    $admin_fields_array['api_payment_action']['options'] = array();
+    $option =  __('PURCHASE', 'mmb-gateway-woocommerce');
+    $admin_fields_array['api_payment_action']['options'][0] = $option;
+    $option =  __('AUTH', 'mmb-gateway-woocommerce');
+    $admin_fields_array['api_payment_action']['options'][1] = $option;
+}
 
 if($show_url_fields_sandbox){
     $admin_fields_array['api_urls'] = array(

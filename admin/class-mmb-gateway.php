@@ -82,9 +82,19 @@ class BOIPA extends WC_Payment_Gateway {
         $this->api_brand_id = $this->get_option('api_brand_id');
 //         $this->api_available_payment_solutions = $this->get_option('api_available_payment_solutions');
 
+        /*Define the control parameter value to determine whether the AUTH functionality show or not */
+        $show_auth_fields = '1';
+        if($show_auth_fields){
+            //AUTH is enabled
+            $this->api_payment_action = $this->get_option('api_payment_action');
+        }else{
+            //AUTH is not enabled, only PURCHASE
+            $this->api_payment_action = 0;
+        }
+
         /*Define the control parameter value to determine whether the UI fields show or not */
-        $show_url_fields_sandbox = '1';
-        $show_url_fields_live = '1';
+        $show_url_fields_sandbox = '0';
+        $show_url_fields_live = '0';
         //Define the $integration_modes,specifies whether integration mode should be shown or not, 1 means to show, 0 means not
         
         $integration_show_iframe = '1';
@@ -381,7 +391,7 @@ class BOIPA extends WC_Payment_Gateway {
         }
         
         //the server will also call back the notification when  refund are made, this is to ignore the other action, only purchase
-        if($query['action'] != 'PURCHASE'){
+        if($query['action'] != 'PURCHASE' && $query['action'] != 'AUTH'){
             return __( 'Bad identifier.', 'mmb-gateway-woocommerce' );
         }
         
@@ -390,5 +400,114 @@ class BOIPA extends WC_Payment_Gateway {
         $order = wc_get_order($order_id);
         $mmb_request = new MMB_Gateway_Request($this);
         $mmb_request->generate_check_request_form($order, $merchantTxId, $this->testmode);
+    }
+    /**
+     * Capture payment when the order is changed from on-hold to complete or processing
+     *
+     * @param  int $order_id
+     */
+    public function capture_payment( $order_id ) {
+        $order = wc_get_order( $order_id );
+        if ( $order->get_payment_method() == 'boipa' ) {
+            $merchantTxId = get_post_meta( $order->get_id(), '_transaction_id', true );
+            $old_wc         = version_compare( WC_VERSION, '3.0', '<' );
+            $payment_status  = $old_wc ? get_post_meta( $order_id, '_payment_status', true ) : $order->get_meta( '_payment_status', true );
+            if($merchantTxId && 'on-hold' == $payment_status){
+                include_once('class-mmb-gateway-request.php');
+                $mmb_request = new MMB_Gateway_Request($this);
+                $amount = $order->get_total();
+                $mmb_request->do_capture_process($this->testmode,$order, $merchantTxId,$amount);
+            }
+        }
+    }
+    public function maybe_capture_charge( $order ) {
+        if ( ! is_object( $order ) ) {
+            $order = wc_get_order( $order );
+        }
+        
+        $order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+        $this->capture_payment( $order_id );
+        
+        return true;
+    }
+    // add a drop down option of Capture Online button for the Order actions area
+    public function add_capture_charge_order_action( $actions ) {
+        if ( ! isset( $_REQUEST['post'] ) ) {
+            return $actions;
+        }
+        
+        $order = wc_get_order( $_REQUEST['post'] );
+        
+        $old_wc         = version_compare( WC_VERSION, '3.0', '<' );
+        $order_id       = $old_wc ? $order->id : $order->get_id();
+        $payment_method = $old_wc ? $order->payment_method : $order->get_payment_method();
+        $payment_status  = $old_wc ? get_post_meta( $order_id, '_payment_status', true ) : $order->get_meta( '_payment_status', true );
+        
+        // exit if the order wasn't paid for with this gateway or the order has paid with Purchase action
+        if ( 'boipa' !== $payment_method || 'on-hold' !== $payment_status ) {
+            return $actions;
+        }
+        
+        if ( ! is_array( $actions ) ) {
+            $actions = array();
+        }
+        
+        $actions['boipa_capture_charge'] = esc_html__( 'Capture Online');
+        
+        return $actions;
+    }
+    // add a drop down option of VOID Online button for the Order actions area
+    public function add_void_charge_order_action( $actions ) {
+        if ( ! isset( $_REQUEST['post'] ) ) {
+            return $actions;
+        }
+        
+        $order = wc_get_order( $_REQUEST['post'] );
+        
+        $old_wc         = version_compare( WC_VERSION, '3.0', '<' );
+        $order_id       = $old_wc ? $order->id : $order->get_id();
+        $payment_method = $old_wc ? $order->payment_method : $order->get_payment_method();
+        $payment_status  = $old_wc ? get_post_meta( $order_id, '_payment_status', true ) : $order->get_meta( '_payment_status', true );
+        
+        // exit if the order wasn't paid for with this gateway or the order has paid with Purchase action
+        if ( 'boipa' !== $payment_method || 'on-hold' !== $payment_status ) {
+            return $actions;
+        }
+        
+        if ( ! is_array( $actions ) ) {
+            $actions = array();
+        }
+        
+        $actions['boipa_void_charge'] = esc_html__( 'VOID Online');
+        
+        return $actions;
+    }
+    /**
+     * Cancel authorization
+     *
+     * @param  int $order_id
+     */
+    public function cancel_payment( $order_id ) {
+        $order = wc_get_order( $order_id );
+        if ( $order->get_payment_method() == 'boipa' ) {
+            $merchantTxId = get_post_meta( $order->get_id(), '_transaction_id', true );
+            $old_wc         = version_compare( WC_VERSION, '3.0', '<' );
+            $payment_status  = $old_wc ? get_post_meta( $order_id, '_payment_status', true ) : $order->get_meta( '_payment_status', true );
+            if($merchantTxId && 'on-hold' == $payment_status){
+                include_once('class-mmb-gateway-request.php');
+                $mmb_request = new MMB_Gateway_Request($this);
+                $mmb_request->do_void_process($this->testmode,$order, $merchantTxId);
+            }
+        }
+    }
+    public function maybe_void_charge( $order ) {
+        if ( ! is_object( $order ) ) {
+            $order = wc_get_order( $order );
+        }
+        
+        $order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+        $this->cancel_payment( $order_id );
+        
+        return true;
     }
 }
