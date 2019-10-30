@@ -10,7 +10,7 @@ Got a question? Contact ecommerce@boipa.com for help.
 
 For instructions on how to install the plugin on PrestaShop please go to our Wiki.
 
-== Installation ==
+## Installation
 
 This section describes how to install the plugin and get it working.
 
