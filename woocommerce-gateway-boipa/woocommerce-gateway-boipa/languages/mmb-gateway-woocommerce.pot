@@ -1,3 +1,0 @@
-#: admin/class-mmb-gateway.php:85
-msgid "MMB Gateway"
-msgstr ""
