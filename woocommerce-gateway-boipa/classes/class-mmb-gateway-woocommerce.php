@@ -136,15 +136,15 @@ class MMB_Gateway_Woocommerce {
      * @access   private
      */
     private function define_admin_hooks() {
-        $plugin_admin = new MMB_Gateway();
+        $plugin_admin = new BOIPA();
 
         $this->loader->add_filter('woocommerce_payment_gateways', $plugin_admin, 'add_new_gateway');
         add_action('woocommerce_update_options_payment_gateways_' . $plugin_admin->id, array($plugin_admin, 'process_admin_options'));
-        add_action('woocommerce_receipt_mmb_gateway', array($plugin_admin, 'receipt_page'));
+        add_action('woocommerce_receipt_boipa', array($plugin_admin, 'receipt_page'));
         add_action('wp', array($plugin_admin, 'mmb_response_handler'));
         add_action('wp', array($plugin_admin, 'set_wc_notice'));
         add_action( 'woocommerce_admin_order_data_after_shipping_address', array($plugin_admin, 'show_evo_transaction_id') );
-        add_action( 'woocommerce_api_mmb_gateway', array($plugin_admin, 'handle_call_back') );
+        add_action( 'woocommerce_api_boipa', array($plugin_admin, 'handle_call_back') );
     }
 
     /**

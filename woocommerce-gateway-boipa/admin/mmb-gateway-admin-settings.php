@@ -23,14 +23,14 @@ $integration_show_iframe = '1';
 $integration_show_redirect = '1';
 $integration_show_hostedpay = '1';
 
-$api_test_token_url = 'https://apiuat.test.secure.eservice.com.pl/token';
-$api_test_payments_url = 'https://apiuat.test.secure.eservice.com.pl/payments';
-$api_test_js_url = 'https://cashierui-apiuat.test.secure.eservice.com.pl/js/api.js';
-$api_test_cashier_url = 'https://cashierui-apiuat.test.secure.eservice.com.pl/ui/cashier';
-$api_token_url = 'https://api.secure.eservice.com.pl/token';
-$api_payments_url = 'https://api.secure.eservice.com.pl/payments';
-$api_js_url = 'https://cashierui-api.secure.eservice.com.pl/js/api.js';
-$api_cashier_url = 'https://cashierui-api.secure.eservice.com.pl/ui/cashier';
+$api_test_token_url = 'https://apiuat.test.boipapaymentgateway.com/token';
+$api_test_payments_url = 'https://apiuat.test.boipapaymentgateway.com/payments';
+$api_test_js_url = 'https://cashierui-apiuat.test.boipapaymentgateway.com/js/api.js';
+$api_test_cashier_url = 'https://cashierui-apiuat.test.boipapaymentgateway.com/ui/cashier';
+$api_token_url = 'https://api.boipapaymentgateway.com/token';
+$api_payments_url = 'https://api.boipapaymentgateway.com/payments';
+$api_js_url = 'https://cashierui-api.boipapaymentgateway.com/js/api.js';
+$api_cashier_url = 'https://cashierui-api.boipapaymentgateway.com/ui/cashier';
 
 /*
  * The index of the mode:

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: admin\n"
@@ -25,30 +25,28 @@ msgstr "Platba kartou byla dokončena."
 
 #: admin/class-mmb-gateway-request.php:247
 msgid ""
-"Thank you for shopping with us.<br />Your transaction was successful, "
-"payment was received.<br />Your order is currently being processed."
+"Thank you for shopping with us.<br />Your transaction was successful, payment was received."
+"<br />Your order is currently being processed."
 msgstr ""
-"Děkujeme za Váš nákup u nás. <br />Vaše transakce proběhla úspěšně, "
-"platba byla přijata. <br />Vaše objednávka se momentálně zpracovává."
+"Děkujeme za Váš nákup u nás. <br />Vaše transakce proběhla úspěšně, platba byla přijata. <br /"
+">Vaše objednávka se momentálně zpracovává."
 
 #: admin/class-mmb-gateway.php:72 admin/mmb-gateway-admin-settings.php:31
-msgid "UniversalPay Gateway"
-msgstr "UniversalPay brána"
+msgid "BOIPA Gateway"
+msgstr "BOIPA brána"
 
 #: admin/class-mmb-gateway.php:73
 msgid ""
-"UniversalPay gateway sends customers to UniversalPay to enter their payment "
-"information and redirects back to shop when the payment was completed."
+"BOIPA gateway sends customers to BOIPA to enter their payment information and redirects back "
+"to shop when the payment was completed."
 msgstr ""
-"UniversalPay brána přesměrovává zákazníky do Systému UniversalPay plateb pro zadání svých "
-"platebních informací a po provedení platby zpět do obchodu."
+"BOIPA brána přesměrovává zákazníky do Systému BOIPA plateb pro zadání svých platebních "
+"informací a po provedení platby zpět do obchodu."
 
 #: admin/class-mmb-gateway.php:144
 #, php-format
-msgid ""
-"UniversalPay doesn't accept your store currency. Check available currencies  %s here"
-msgstr ""
-"UniversalPay nepřijímá měnu vašeho obchodu. Zkontrolujte dostupné měny zde"
+msgid "BOIPA doesn't accept your store currency. Check available currencies  %s here"
+msgstr "BOIPA nepřijímá měnu vašeho obchodu. Zkontrolujte dostupné měny zde"
 
 #: admin/class-mmb-gateway.php:257 admin/class-mmb-gateway.php:266
 msgid "Bad identifier."
@@ -59,8 +57,8 @@ msgid "Enable/Disable"
 msgstr "Povolit/Zakázat"
 
 #: admin/mmb-gateway-admin-settings.php:21
-msgid "Enable UniversalPay Gateway"
-msgstr "Povolit bránu pro platby UniversalPay"
+msgid "Enable BOIPA Gateway"
+msgstr "Povolit bránu pro platby BOIPA"
 
 #: admin/mmb-gateway-admin-settings.php:22
 msgid "Enable or disable the gateway."
@@ -83,22 +81,20 @@ msgid "This controls the description which the user sees during checkout."
 msgstr "Nastavení popisu, který uživatel vidí při placení."
 
 #: admin/mmb-gateway-admin-settings.php:37
-msgid "Pay with UniversalPay"
-msgstr "Platba prostřednictvím Systému UniversalPay plateb"
+msgid "Pay with BOIPA"
+msgstr "Platba prostřednictvím Systému BOIPA plateb"
 
 #: admin/mmb-gateway-admin-settings.php:40
-msgid "UniversalPay Test Mode"
-msgstr "Testovací režim UniversalPay"
+msgid "BOIPA Test Mode"
+msgstr "Testovací režim BOIPA"
 
 #: admin/mmb-gateway-admin-settings.php:42
 msgid "Enable Test Mode"
 msgstr "Povolit testovací režim"
 
 #: admin/mmb-gateway-admin-settings.php:43
-msgid ""
-"Enable or disable the test mode for the gateway to test the payment method."
-msgstr ""
-"Povolit nebo zakázat testovací režim brány pro testování této platební metody."
+msgid "Enable or disable the test mode for the gateway to test the payment method."
+msgstr "Povolit nebo zakázat testovací režim brány pro testování této platební metody."
 
 #: admin/mmb-gateway-admin-settings.php:48
 msgid "Advanced options"
@@ -109,12 +105,8 @@ msgid "Merchant data"
 msgstr "Údaje obchodníka"
 
 #: admin/mmb-gateway-admin-settings.php:55
-msgid ""
-"In this section You can set up your merchant data for UniversalPay "
-"system."
-msgstr ""
-"V této sekci si můžete nastavit vaše údaje obchodníka pro Systém "
-"UniversalPay plateb."
+msgid "In this section You can set up your merchant data for BOIPA system."
+msgstr "V této sekci si můžete nastavit vaše údaje obchodníka pro Systém BOIPA plateb."
 
 #: admin/mmb-gateway-admin-settings.php:58
 msgid "Merchant ID"
@@ -128,23 +120,21 @@ msgstr "Heslo"
 msgid "Payment solution"
 msgstr "Platební řešení"
 
-#: admin/mmb-gateway-admin-settings.php:80
-#: admin/mmb-gateway-admin-settings.php:118
+#: admin/mmb-gateway-admin-settings.php:80 admin/mmb-gateway-admin-settings.php:118
 msgid "URLs"
 msgstr "Adresy URL"
 
-#: admin/mmb-gateway-admin-settings.php:82
-#: admin/mmb-gateway-admin-settings.php:120
-msgid "In this section You can set up UniversalPay system URLs."
-msgstr "V této sekci si můžete nastavit adresy URL Systému UniversalPay plateb."
+#: admin/mmb-gateway-admin-settings.php:82 admin/mmb-gateway-admin-settings.php:120
+msgid "In this section You can set up BOIPA system URLs."
+msgstr "V této sekci si můžete nastavit adresy URL Systému BOIPA plateb."
 
 #: admin/mmb-gateway-admin-settings.php:85
 msgid "Test URLs"
 msgstr "Testovací adresy URL"
 
 #: admin/mmb-gateway-admin-settings.php:87
-msgid "In this section You can set up UniversalPay test system URLs."
-msgstr "V této sekci si můžete nastavit adresy URL testovacího systému pro Systém UniversalPay plateb."
+msgid "In this section You can set up BOIPA test system URLs."
+msgstr "V této sekci si můžete nastavit adresy URL testovacího systému pro Systém BOIPA plateb."
 
 #: admin/mmb-gateway-admin-settings.php:90
 msgid "Test Token URL"
@@ -180,8 +170,8 @@ msgstr "Adresa URL pro pokladnu"
 
 #: classes/class-mmb-gateway-woocommerce-activator.php:37
 #: classes/class-mmb-gateway-woocommerce-activator.php:43
-msgid "UniversalPay Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
-msgstr "Brána UniversalPay pro Woocommerce vyžaduje Woocommerce verze 2.1 nebo vyšší"
+msgid "BOIPA Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
+msgstr "Brána BOIPA pro Woocommerce vyžaduje Woocommerce verze 2.1 nebo vyšší"
 
 #: classes/class-mmb-gateway-woocommerce-activator.php:37
 #: classes/class-mmb-gateway-woocommerce-activator.php:43

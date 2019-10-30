@@ -63,7 +63,7 @@ function init_mmb_gateway()
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'mmb_gateway_action_links' );
 function mmb_gateway_action_links( $links ) {
     $plugin_links = array(
-        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=mmb_gateway' ) . '">' . __( 'Settings', 'mmb_gateway' ) . '</a>',
+        '<a href="' . admin_url( 'admin.php?page=wc-settings&tab=checkout&section=boipa' ) . '">' . __( 'Settings', 'boipa' ) . '</a>',
     );
     return array_merge( $plugin_links, $links );
 }

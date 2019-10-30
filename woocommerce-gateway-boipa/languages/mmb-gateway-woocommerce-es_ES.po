@@ -32,21 +32,21 @@ msgstr ""
 "pago.<br />Su pedido está siendo procesado."
 
 #: admin/class-ipg-gateway.php:72 admin/ipg-gateway-admin-settings.php:31
-msgid "UniversalPay Gateway"
-msgstr "Pasarela UniversalPay"
+msgid "BOIPA Gateway"
+msgstr "Pasarela BOIPA"
 
 #: admin/class-ipg-gateway.php:73
 msgid ""
-"UniversalPay gateway sends customers to UniversalPay to enter their payment information and "
-"redirects back to shop when the payment was completed."
+"BOIPA gateway sends customers to BOIPA to enter their payment information and redirects back to "
+"shop when the payment was completed."
 msgstr ""
-"La pasarela UniversalPay manda a los clentes a Pagos UniversalPay para completar sus pagos "
-"información y redirecciona de vuelta a la tienda en la que se realizó el pago."
+"La pasarela BOIPA manda a los clentes a Pagos BOIPA para completar sus pagos información y "
+"redirecciona de vuelta a la tienda en la que se realizó el pago."
 
 #: admin/class-ipg-gateway.php:144
 #, php-format
-msgid "UniversalPay doesn't accept your store currency. Check available currencies  %s here"
-msgstr "UniversalPay no acepta la divisa de su tienda. Compruebe las divisas disponibles %s aquí"
+msgid "BOIPA doesn't accept your store currency. Check available currencies  %s here"
+msgstr "BOIPA no acepta la divisa de su tienda. Compruebe las divisas disponibles %s aquí"
 
 #: admin/class-ipg-gateway.php:257 admin/class-ipg-gateway.php:266
 msgid "Bad identifier."
@@ -57,8 +57,8 @@ msgid "Enable/Disable"
 msgstr "Habilitar/Deshabilitar"
 
 #: admin/ipg-gateway-admin-settings.php:21
-msgid "Enable UniversalPay Gateway"
-msgstr "Habilitar Pasarela de Pago UniversalPay"
+msgid "Enable BOIPA Gateway"
+msgstr "Habilitar Pasarela de Pago BOIPA"
 
 #: admin/ipg-gateway-admin-settings.php:22
 msgid "Enable or disable the gateway."
@@ -81,12 +81,12 @@ msgid "This controls the description which the user sees during checkout."
 msgstr "Esto controla la descripción que ve el usuario durante el pago."
 
 #: admin/ipg-gateway-admin-settings.php:37
-msgid "Pay with UniversalPay"
-msgstr "Pagar mediante UniversalPay"
+msgid "Pay with BOIPA"
+msgstr "Pagar mediante BOIPA"
 
 #: admin/ipg-gateway-admin-settings.php:40
-msgid "UniversalPay Test Mode"
-msgstr "Modo de Prueba de UniversalPay"
+msgid "BOIPA Test Mode"
+msgstr "Modo de Prueba de BOIPA"
 
 #: admin/ipg-gateway-admin-settings.php:42
 msgid "Enable Test Mode"
@@ -105,9 +105,8 @@ msgid "Merchant data"
 msgstr "Datos del distribuidor"
 
 #: admin/ipg-gateway-admin-settings.php:55
-msgid "In this section You can set up your merchant data for UniversalPay system."
-msgstr ""
-"En esta sección, puede introducir datos del distrbuidor para el uso de Pagos UniversalPay sistema."
+msgid "In this section You can set up your merchant data for BOIPA system."
+msgstr "En esta sección, puede introducir datos del distrbuidor para el uso de Pagos BOIPA sistema."
 
 #: admin/ipg-gateway-admin-settings.php:58
 msgid "Merchant ID"
@@ -126,16 +125,16 @@ msgid "URLs"
 msgstr "URL"
 
 #: admin/ipg-gateway-admin-settings.php:82 admin/ipg-gateway-admin-settings.php:120
-msgid "In this section You can set up UniversalPay system URLs."
-msgstr "En este apartado, puede configurar las URL del sistema de Pagos UniversalPay."
+msgid "In this section You can set up BOIPA system URLs."
+msgstr "En este apartado, puede configurar las URL del sistema de Pagos BOIPA."
 
 #: admin/ipg-gateway-admin-settings.php:85
 msgid "Test URLs"
 msgstr "Probar URL"
 
 #: admin/ipg-gateway-admin-settings.php:87
-msgid "In this section You can set up UniversalPay test system URLs."
-msgstr "En este apartado, puede introducir URL para probar el sistema de Pagos UniversalPay."
+msgid "In this section You can set up BOIPA test system URLs."
+msgstr "En este apartado, puede introducir URL para probar el sistema de Pagos BOIPA."
 
 #: admin/ipg-gateway-admin-settings.php:90
 msgid "Test Token URL"
@@ -171,8 +170,8 @@ msgstr "URL del Cajero"
 
 #: classes/class-ipg-gateway-woocommerce-activator.php:37
 #: classes/class-ipg-gateway-woocommerce-activator.php:43
-msgid "UniversalPay Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
-msgstr "La pasarela de UniversalPay de Woocommerce requiere la versión 2.1 o superior de Woocommeerce"
+msgid "BOIPA Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
+msgstr "La pasarela de BOIPA de Woocommerce requiere la versión 2.1 o superior de Woocommeerce"
 
 #: classes/class-ipg-gateway-woocommerce-activator.php:37
 #: classes/class-ipg-gateway-woocommerce-activator.php:43

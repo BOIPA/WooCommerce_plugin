@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.8\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: admin\n"
@@ -25,30 +25,29 @@ msgstr "Płatność kartą zakończona."
 
 #: admin/class-mmb-gateway-request.php:247
 msgid ""
-"Thank you for shopping with us.<br />Your transaction was successful, "
-"payment was received.<br />Your order is currently being processed."
+"Thank you for shopping with us.<br />Your transaction was successful, payment was "
+"received.<br />Your order is currently being processed."
 msgstr ""
-"Dziękujemy za wspólne zakupy. <br /> Twoja transakcja powiodła się, "
-"płatność została przekazana.<br /> Twoje zamówienie jest obecnie przetwarzane."
+"Dziękujemy za wspólne zakupy. <br /> Twoja transakcja powiodła się, płatność "
+"została przekazana.<br /> Twoje zamówienie jest obecnie przetwarzane."
 
 #: admin/class-mmb-gateway.php:72 admin/mmb-gateway-admin-settings.php:31
-msgid "UniversalPay Gateway"
-msgstr "Bramka UniversalPay"
+msgid "BOIPA Gateway"
+msgstr "Bramka BOIPA"
 
 #: admin/class-mmb-gateway.php:73
 msgid ""
-"UniversalPay gateway sends customers to UniversalPay to enter their payment "
-"information and redirects back to shop when the payment was completed."
+"BOIPA gateway sends customers to BOIPA to enter their payment information and "
+"redirects back to shop when the payment was completed."
 msgstr ""
-"Bramka UniversalPay kieruje klientów do UniversalPay, aby wprowadzili "
-"dane dotyczące opłaty i kieruje ich z powrotem do sklepu po zakończeniu transakcji."
+"Bramka BOIPA kieruje klientów do BOIPA, aby wprowadzili dane dotyczące opłaty i "
+"kieruje ich z powrotem do sklepu po zakończeniu transakcji."
 
 #: admin/class-mmb-gateway.php:144
 #, php-format
-msgid ""
-"UniversalPay doesn't accept your store currency. Check available currencies  %s here"
+msgid "BOIPA doesn't accept your store currency. Check available currencies  %s here"
 msgstr ""
-"UniversalPay nie akceptuje waluty Twojego sklepu. Sprawdź inne dostępne waluty %s tutaj."
+"BOIPA nie akceptuje waluty Twojego sklepu. Sprawdź inne dostępne waluty %s tutaj."
 
 #: admin/class-mmb-gateway.php:257 admin/class-mmb-gateway.php:266
 msgid "Bad identifier."
@@ -59,8 +58,8 @@ msgid "Enable/Disable"
 msgstr "Włącz/wyłącz"
 
 #: admin/mmb-gateway-admin-settings.php:21
-msgid "Enable UniversalPay Gateway"
-msgstr "Włącz bramkę płatności UniversalPay"
+msgid "Enable BOIPA Gateway"
+msgstr "Włącz bramkę płatności BOIPA"
 
 #: admin/mmb-gateway-admin-settings.php:22
 msgid "Enable or disable the gateway."
@@ -83,11 +82,11 @@ msgid "This controls the description which the user sees during checkout."
 msgstr "Tutaj umieszcza się opis, który klient widzi podczas finalizacji zakupu."
 
 #: admin/mmb-gateway-admin-settings.php:37
-msgid "Pay with UniversalPay"
-msgstr "Płać poprzez UniversalPay"
+msgid "Pay with BOIPA"
+msgstr "Płać poprzez BOIPA"
 
 #: admin/mmb-gateway-admin-settings.php:40
-msgid "UniversalPay Test Mode"
+msgid "BOIPA Test Mode"
 msgstr "Tryb testowy"
 
 #: admin/mmb-gateway-admin-settings.php:42
@@ -95,10 +94,8 @@ msgid "Enable Test Mode"
 msgstr "Włącz tryb testowy"
 
 #: admin/mmb-gateway-admin-settings.php:43
-msgid ""
-"Enable or disable the test mode for the gateway to test the payment method."
-msgstr ""
-"Włącz lub wyłącz tryb testowy dla bramki, aby sprawdzić metodę płatności."
+msgid "Enable or disable the test mode for the gateway to test the payment method."
+msgstr "Włącz lub wyłącz tryb testowy dla bramki, aby sprawdzić metodę płatności."
 
 #: admin/mmb-gateway-admin-settings.php:48
 msgid "Advanced options"
@@ -109,11 +106,8 @@ msgid "Merchant data"
 msgstr "Dane sprzedającego"
 
 #: admin/mmb-gateway-admin-settings.php:55
-msgid ""
-"In this section You can set up your merchant data for UniversalPay "
-"system."
-msgstr ""
-"W tej sekcji możesz wpisać dane sprzedającego dla systemu UniversalPay."
+msgid "In this section You can set up your merchant data for BOIPA system."
+msgstr "W tej sekcji możesz wpisać dane sprzedającego dla systemu BOIPA."
 
 #: admin/mmb-gateway-admin-settings.php:58
 msgid "Merchant ID"
@@ -127,23 +121,21 @@ msgstr "Hasło"
 msgid "Payment solution"
 msgstr "Rozwiązanie dotyczące płatności"
 
-#: admin/mmb-gateway-admin-settings.php:80
-#: admin/mmb-gateway-admin-settings.php:118
+#: admin/mmb-gateway-admin-settings.php:80 admin/mmb-gateway-admin-settings.php:118
 msgid "URLs"
 msgstr "URL"
 
-#: admin/mmb-gateway-admin-settings.php:82
-#: admin/mmb-gateway-admin-settings.php:120
-msgid "In this section You can set up UniversalPay system URLs."
-msgstr "W tej sekcji możesz ustawić URL systemu UniversalPay."
+#: admin/mmb-gateway-admin-settings.php:82 admin/mmb-gateway-admin-settings.php:120
+msgid "In this section You can set up BOIPA system URLs."
+msgstr "W tej sekcji możesz ustawić URL systemu BOIPA."
 
 #: admin/mmb-gateway-admin-settings.php:85
 msgid "Test URLs"
 msgstr "Testowe URL"
 
 #: admin/mmb-gateway-admin-settings.php:87
-msgid "In this section You can set up UniversalPay test system URLs."
-msgstr "W tej sekcji możesz ustawić URL systemu UniversalPay."
+msgid "In this section You can set up BOIPA test system URLs."
+msgstr "W tej sekcji możesz ustawić URL systemu BOIPA."
 
 #: admin/mmb-gateway-admin-settings.php:90
 msgid "Test Token URL"
@@ -179,8 +171,8 @@ msgstr "URL kasjera"
 
 #: classes/class-mmb-gateway-woocommerce-activator.php:37
 #: classes/class-mmb-gateway-woocommerce-activator.php:43
-msgid "UniversalPay Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
-msgstr "Bramka UniversalPay dla Woocommerce wymaga wersji Woocommerce 2.1 lub wyższej"
+msgid "BOIPA Gateway for Woocommerce requires Woocommerce version 2.1 or higher"
+msgstr "Bramka BOIPA dla Woocommerce wymaga wersji Woocommerce 2.1 lub wyższej"
 
 #: classes/class-mmb-gateway-woocommerce-activator.php:37
 #: classes/class-mmb-gateway-woocommerce-activator.php:43
@@ -208,5 +200,5 @@ msgstr ""
 msgid "HostedPayPage"
 msgstr ""
 
-msgid "Pay via UniversalPay"
-msgstr "Zapłać z UniversalPay"
+msgid "Pay via BOIPA"
+msgstr "Zapłać z BOIPA"

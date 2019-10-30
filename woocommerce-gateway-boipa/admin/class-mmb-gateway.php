@@ -21,7 +21,7 @@ if (!defined('ABSPATH')) {
  * @package    MMB_Gateway_Woocommerce
  * @subpackage MMB_Gateway_Woocommerce/admin
  */
-class MMB_Gateway extends WC_Payment_Gateway {
+class BOIPA extends WC_Payment_Gateway {
     /**
      * The ID of this plugin.
      *
@@ -68,7 +68,7 @@ class MMB_Gateway extends WC_Payment_Gateway {
         $this->plugin_name = 'mmb-gateway-woocommerce';
         $this->version = '1.1.0';
 
-        $this->id = 'mmb_gateway';
+        $this->id = 'boipa';
         $this->method_title = __('BOIPA', 'mmb-gateway-woocommerce');
         $this->method_description = __('BOIPA gateway sends customers to BOIPA to enter their payment information and redirects back to shop when the payment was completed.', 'mmb-gateway-woocommerce');
 
@@ -99,14 +99,14 @@ class MMB_Gateway extends WC_Payment_Gateway {
          */
         //specifies the default index of integration mode
         $default_integration_mode = '0';
-        $api_test_token_url = 'https://apiuat.test.secure.eservice.com.pl/token';
-		$api_test_payments_url = 'https://apiuat.test.secure.eservice.com.pl/payments';
-		$api_test_js_url = 'https://cashierui-apiuat.test.secure.eservice.com.pl/js/api.js';
-		$api_test_cashier_url = 'https://cashierui-apiuat.test.secure.eservice.com.pl/ui/cashier';
-		$api_token_url = 'https://api.secure.eservice.com.pl/token';
-		$api_payments_url = 'https://api.secure.eservice.com.pl/payments';
-		$api_js_url = 'https://cashierui-api.secure.eservice.com.pl/js/api.js';
-		$api_cashier_url = 'https://cashierui-api.secure.eservice.com.pl/ui/cashier';
+        $api_test_token_url = 'https://apiuat.test.boipapaymentgateway.com/token';
+        $api_test_payments_url = 'https://apiuat.test.boipapaymentgateway.com/payments';
+        $api_test_js_url = 'https://cashierui-apiuat.test.boipapaymentgateway.com/js/api.js';
+        $api_test_cashier_url = 'https://cashierui-apiuat.test.boipapaymentgateway.com/ui/cashier';
+        $api_token_url = 'https://api.boipapaymentgateway.com/token';
+        $api_payments_url = 'https://api.boipapaymentgateway.com/payments';
+        $api_js_url = 'https://cashierui-api.boipapaymentgateway.com/js/api.js';
+        $api_cashier_url = 'https://cashierui-api.boipapaymentgateway.com/ui/cashier';
         
         if($integration_show_iframe || $integration_show_redirect || $integration_show_hostedpay){
             $this->api_payment_modes = $this->get_option('api_payment_modes');
@@ -253,7 +253,7 @@ class MMB_Gateway extends WC_Payment_Gateway {
      */
     public function add_new_gateway($methods)
     {
-        $methods[] = 'MMB_Gateway';
+        $methods[] = 'BOIPA';
 
         return $methods;
     }
@@ -269,7 +269,7 @@ class MMB_Gateway extends WC_Payment_Gateway {
             $order_id = absint($_GET['order_id']);
             $order = wc_get_order($order_id);
             $payment_method = $order->get_payment_method();
-            if ('mmb_gateway' == $payment_method) {
+            if ('boipa' == $payment_method) {
                 $mmb_message = get_post_meta($order_id, '_mmb_gateway_message', true);
 
                 if (!empty($mmb_message)) {

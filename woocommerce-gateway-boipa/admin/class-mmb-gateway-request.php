@@ -49,7 +49,7 @@ class MMB_Gateway_Request
     public function __construct($gateway)
     {
         $this->gateway = $gateway;
-        $this->notify_url = WC()->api_request_url('MMB_Gateway');
+        $this->notify_url = WC()->api_request_url('BOIPA');
     }
 
     /**
@@ -120,7 +120,6 @@ class MMB_Gateway_Request
      */
     private function get_mmb_gateway_token_args($order, $sandbox = false)
     {
-        MMB_Gateway::log('Generating payment form for order ' . $order->get_order_number() . '. Notify URL: ' . $this->notify_url);
        
         // to get only the site's domain url name to assign to the parameter allowOriginUrl . 
         //otherwise it will encounter a CORS issue when wordpress deployed inside a subfolder of the web server.
@@ -154,7 +153,7 @@ class MMB_Gateway_Request
             'channel' => 'ECOM',
             'allowOriginUrl' => $allowOriginUrl,
             "merchantNotificationUrl" => $this->notify_url.'?order_id='. $order->get_id(),
-            "merchantLandingPageUrl" =>  $shop_page_url . "?wcapi=mmb_gateway&order_id=" . $order->get_id(),
+            "merchantLandingPageUrl" =>  $shop_page_url . "?wcapi=boipa&order_id=" . $order->get_id(),
             "customerBillingAddressPostalCode" => $order->get_billing_postcode(),
             "customerBillingAddressCity" => $order->get_billing_city(),
             "customerBillingAddressCountry" => $order->get_billing_country(),
@@ -218,7 +217,6 @@ class MMB_Gateway_Request
         ) );
 
         if( is_wp_error( $mmb_check_request ) ) {
-            MMB_Gateway::log('Wordpress connection error: ' . $order->get_id() . ', Transaction id:' . $merchantTxId);
             $mmb_message = array(
                 'message' => 'Wordpress connection error: ' . $order->get_id() . ', Transaction id:' . $merchantTxId,
                 'message_type' => 'error'
@@ -231,7 +229,6 @@ class MMB_Gateway_Request
         $mmb_check_request_data = json_decode( $mmb_check_request_body);
 
         if( $mmb_check_request_data->result !== 'success' ) {
-            MMB_Gateway::log('Payment error: ' . $order->get_id() . ', Transaction id:' . $merchantTxId);
             $mmb_message = array(
                 'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
                 'message_type' => 'error'
@@ -242,7 +239,6 @@ class MMB_Gateway_Request
 
         if ( $mmb_check_request_data->status == "ERROR" || $mmb_check_request_data->status == "NOT_SET_FOR_CAPTURE" || $mmb_check_request_data->status == "DECLINED" || $mmb_check_request_data->status == "INCOMPLETE" ) {
             $order->update_status( 'failed', sprintf( __( 'Card payment failed.', 'mmb-gateway-woocommerce' ) ) );
-            MMB_Gateway::log('Card payment failed: ' . $order->get_id() . ', Transaction id:' . $merchantTxId);
             $mmb_message = array(
                 'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
                 'message_type' => 'error'
@@ -268,7 +264,6 @@ class MMB_Gateway_Request
                 WC()->cart->empty_cart();
             }
 
-            MMB_Gateway::log('Payment Completed on order: ' . $order_id . ', Transaction id:' . $merchantTxId);
 
             $message = __('Thank you for shopping with us.<br />Your transaction was successful, payment was received.<br />Your order is currently being processed.', 'mmb-gateway-woocommerce');
             $message .= '<br />'.__( 'Order ID:', 'mmb-gateway-woocommerce' ).$order->get_id() . '. '.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ) . $merchantTxId;
@@ -292,14 +287,13 @@ class MMB_Gateway_Request
      */
     private function get_mmb_gateway_cashier_args($order, $sandbox = false, $token)
     {
-        MMB_Gateway::log('Generating payment form for order ' . $order->get_order_number() . '. Notify URL: ' . $this->notify_url);
 
         return apply_filters('woocommerce_mmb_gateway_args',
             array(
                 'containerId' => "mmbCashierDiv",
                 'token' => $token,
                 'merchantId' => $this->gateway->api_merchant_id,
-                'language' => trim(get_locale()),
+                'language' => substr(get_locale(), 0,2), //to get the first 2 letters of the current language code
                 'integrationMode' => 'iframe'
 //                 'successCallback' => 'handleResult',
 //                 'failureCallback' => 'handleResult',
@@ -351,7 +345,7 @@ class MMB_Gateway_Request
             case '0':
                 $mmb_cashier_args = $this->get_mmb_gateway_cashier_args( $order, $sandbox, $token_request_data->token );
                 
-                $mmb_form[] = '<form id="mmbForm" action="'.site_url() . "/?wcapi=mmb_gateway&order_id=" . $order->get_id();
+                $mmb_form[] = '<form id="mmbForm" action="'.site_url() . "/?wcapi=boipa&order_id=" . $order->get_id();
                 $mmb_form[] = '" method="post"><input type="hidden" id="merchantTxId" name="merchantTxId" value=""/></form>';
                 $mmb_form[] = '<div id="mmbCashierDiv"></div>';
                 $mmb_form[] = '<script type="text/javascript" src="'. $this->get_api_js($sandbox) . '"></script>';
@@ -397,7 +391,7 @@ class MMB_Gateway_Request
         foreach ($data as $a => $b) {
             $form_html .= "<input type='hidden' name='" . htmlentities($a) . "' value='" . htmlentities($b) . "'>";
         }
-        $form_html .= '<button type="submit" class="button alt">'.__( 'Pay via Credit/Debit Card', 'mmb-gateway-woocommerce' ).'</button> </form>';
+        $form_html .= '<button type="submit" class="button alt">'.__( 'Pay with BOIPA', 'mmb-gateway-woocommerce' ).'</button> </form>';
         return $form_html;
     }
     /**
@@ -416,13 +410,12 @@ class MMB_Gateway_Request
         foreach ($data as $a => $b) {
             $form_html .= "<input type='hidden' name='" . htmlentities($a) . "' value='" . htmlentities($b) . "'>";
         }
-        $form_html .= '<button type="submit" class="button alt">'.__( 'Pay via Credit/Debit card', 'mmb-gateway-woocommerce' ).'</button> </form>';
+        $form_html .= '<button type="submit" class="button alt">'.__( 'Pay with BOIPA', 'mmb-gateway-woocommerce' ).'</button> </form>';
         return $form_html;
     }
     
     private function get_mmb_gateway_check_request_args($order, $token, $merchantTxId)
     {
-        MMB_Gateway::log('Generating check payment request for order' . $order->get_order_number());
 
         return array(
             'token' => $token,
@@ -434,7 +427,6 @@ class MMB_Gateway_Request
 
     private function get_mmb_gateway_check_token_args($order, $merchantTxId)
     {
-        MMB_Gateway::log('Generating check payment request for order ' . $order->get_order_number());
 
         return array(
             "merchantId" => $this->gateway->api_merchant_id,
