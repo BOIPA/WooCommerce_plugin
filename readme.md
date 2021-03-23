@@ -2,11 +2,12 @@
 
 ## BOIPA Gateway for Woocommerce
 
-Requires at least: 4.1
-Tested up to: 4.9.5
-Stable tag: 1.4.0
-License: G
-License URI:
+Requires at least: 4.1  
+Tested up to: 4.9.5  
+Stable tag: 1.4.0  
+License: G  
+License URI:    
+Minimum WordPress Version: 5.2
 
 ## Description
 
