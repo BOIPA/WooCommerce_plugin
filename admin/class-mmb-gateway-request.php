@@ -241,7 +241,7 @@ class MMB_Gateway_Request
                 $order->update_status( 'failed', sprintf( __( 'Card payment failed.', 'mmb-gateway-woocommerce' ) ) );
             }
             $mmb_message = array(
-                'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
+                'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID: ', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.',
                 'message_type' => 'error'
             );
             update_post_meta($order_id, '_mmb_gateway_message', $mmb_message);
@@ -296,7 +296,7 @@ class MMB_Gateway_Request
                     $order->update_status( 'failed', sprintf( __( 'Card payment failed.', 'mmb-gateway-woocommerce' ) ) );
                 }
                 $mmb_message = array(
-                    'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
+                    'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID: ', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.',
                     'message_type' => 'error'
                 );
                 update_post_meta($order_id, '_mmb_gateway_message', $mmb_message);
