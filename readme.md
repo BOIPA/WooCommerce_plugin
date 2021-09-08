@@ -21,3 +21,8 @@ This section describes how to install the plugin and get it working.
 6. Wait while plugin is uploaded to your server
 7. Add your merchant id and password on "Settings" page, and choose your payment solution
 8. Click "Activate Plugin" button
+
+For further instructions on how to install the plugin on WooCommerce please go to our Wiki [here](https://github.com/BOIPA/WooCommerce_plugin/wiki/Installation-of-BOIPA-Plugin-for-WooCommerce).
+Got a question? For UK support email ecommerce@BOIPA.com <ecommerce@boipa.com>
+
+For EU email support.emea@evopayments.com.
