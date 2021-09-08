@@ -1,15 +1,15 @@
-=== BOIPA Gateway for Woocommerce ===
+##  BOIPA Gateway for Woocommerce
 Requires at least: 4.1
 Tested up to: 4.9.5
 Stable tag: 1.4.0
 License: G
 License URI:
 
-== Description ==
+##  Description
 
 BOIPA Gateway for Woocommerce is a Wordpress plugin which allows you to accept payments on your Woocommerce store.
 
-== Installation ==
+##  Installation
 
 This section describes how to install the plugin and get it working.
 
