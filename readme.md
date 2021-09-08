@@ -23,5 +23,7 @@ This section describes how to install the plugin and get it working.
 8. Click "Activate Plugin" button
 
 For further instructions on how to install the plugin on WooCommerce please go to our Wiki [here](https://github.com/BOIPA/WooCommerce_plugin/wiki/Installation-of-BOIPA-Plugin-for-WooCommerce).
-Got a question? For UK support email <ecommerce@boipa.com>
+
+Got a question? 
+For support email <ecommerce@boipa.com>
 
