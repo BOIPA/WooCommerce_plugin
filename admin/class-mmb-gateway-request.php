@@ -258,8 +258,9 @@ class MMB_Gateway_Request
                         'message_type' => $message_type
                     );
                     update_post_meta($order_id, '_mmb_gateway_message', $mmb_message);
-                    header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK', true, 200);
-                    
+                    // Redirect
+                    wp_redirect( $order->get_checkout_order_received_url() );
+                    exit;
                 }else{
                     $mmb_message = array(
                         'message' =>  __( 'Card payment failed.', 'mmb-gateway-woocommerce' ).__( 'Order ID:', 'mmb-gateway-woocommerce' ) . $order->get_id() . '.'.__( 'Transaction ID:', 'mmb-gateway-woocommerce' ).  $merchantTxId,
