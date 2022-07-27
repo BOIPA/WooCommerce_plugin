@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: ..\n"
 "Last-Translator: \n"
@@ -17,8 +17,8 @@ msgstr ""
 "X-Poedit-SearchPath-1: classes\n"
 
 #: admin/class-ipg-gateway-request.php:222
-msgid "Card payment failed."
-msgstr "Ha fallado el pago con tarjeta."
+msgid "Payment failed."
+msgstr "Pago fallido."
 
 #: admin/class-ipg-gateway-request.php:234
 msgid "Card payment completed."

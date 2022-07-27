@@ -9,15 +9,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.3\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-KeywordsList: __\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: admin\n"
 "X-Poedit-SearchPath-1: classes\n"
 
 #: admin/class-mmb-gateway-request.php:222
-msgid "Card payment failed."
-msgstr "Nem sikerült a kártyás fizetés."
+msgid "Payment failed."
+msgstr "Fizet�s meghi�sult."
 
 #: admin/class-mmb-gateway-request.php:234
 msgid "Card payment completed."
