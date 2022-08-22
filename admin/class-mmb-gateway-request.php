@@ -199,8 +199,7 @@ class MMB_Gateway_Request
             "customerAddressCity" => $order->get_billing_city(),
             "customerAddressPostalCode" => $order->get_billing_postcode(),
             "customerAddressCountry" => $order->get_billing_country(),
-//             "customerAddressState" => substr($order->get_billing_state(),0,3),
-//             "customerAddressPhone" => $order->get_billing_phone(),
+
             "merchantChallengeInd" => '01',
             "merchantDecReqInd" => 'N',
             "merchantLandingPageRedirectMethod" => 'GET'
