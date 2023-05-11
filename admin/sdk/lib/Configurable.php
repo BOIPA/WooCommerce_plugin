@@ -132,6 +132,7 @@ class Configurable implements \ArrayAccess, \Iterator, \Serializable {
         unset($this->_data[$name]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
             $this->_data[] = $value;
@@ -139,44 +140,55 @@ class Configurable implements \ArrayAccess, \Iterator, \Serializable {
             $this->_data[$offset] = $value;
         }
     }
-
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset) {
         return isset($this->_data[$offset]);
     }
-
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset) {
         unset($this->_data[$offset]);
     }
-
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset) {
         return isset($this->_data[$offset]) ? $this->_data[$offset] : null;
     }
-
+    #[\ReturnTypeWillChange]
     function rewind() {
         return reset($this->_data);
     }
-
+    #[\ReturnTypeWillChange]
     function current() {
         return current($this->_data);
     }
-
+    #[\ReturnTypeWillChange]
     function key() {
         return key($this->_data);
     }
-
+    #[\ReturnTypeWillChange]
     function next() {
         return next($this->_data);
     }
-
+    #[\ReturnTypeWillChange]
     function valid() {
         return key($this->_data) !== null;
     }
 
+    /*
+    * Since PHP 8.1, Serializable interface was deprecated
+    * add the two magic methods __serialize and __unserialize for newer PHP version's requirement 
+    * keep the serialize and unserialize methods for backwards compatibility
+    */
     public function serialize() {
+        return $this->__serialize();
+    }
+    public function __serialize() {
         return serialize($this->_data);
     }
 
     public function unserialize($data) {
+        $this->__unserialize($data);
+    }
+    public function __unserialize($data) {
         $this->_data = unserialize($data);
     }
 
