@@ -136,7 +136,7 @@ class MMB_Gateway_Woocommerce {
      * @access   private
      */
     private function define_admin_hooks() {
-        $plugin_admin = new BOIPA();
+        $plugin_admin = new Boipa();
 
         $this->loader->add_filter('woocommerce_payment_gateways', $plugin_admin, 'add_new_gateway');
         add_action('woocommerce_update_options_payment_gateways_' . $plugin_admin->id, array($plugin_admin, 'process_admin_options'));

@@ -4,3 +4,28 @@
     margin: 10px;
     padding:1px;
 }
+#automatic-redirect-background {
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(255, 255, 255, 0.6);
+	z-index: 10000;
+}
+
+#automatic-redirect-background div.content {
+	top: 300px;
+	margin: auto;
+	width: 20%;
+	position: relative;
+	padding: 20px;
+	text-align: center;
+	color: #555;
+	border:solid 1px black;
+	background-color: #fff;
+	cursor: wait;
+	line-height: 32px;
+	border-radius: 4px;
+}

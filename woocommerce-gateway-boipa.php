@@ -3,7 +3,7 @@
 /**
  * Plugin Name: WooCommerce BOIPA
  * Description: WooCommerce BOIPA gateway integration.
- * Version: 1.1.0
+ * Version: 1.2.1
  */
 
 /**
